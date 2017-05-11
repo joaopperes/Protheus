@@ -139,6 +139,7 @@ Return
 Static Function xFIN01ACar(cFile,cLayout)
 
 	Local oFile 		//Arquivo a ser importado
+	Local aCabec := {}
 	Local aLinha := {}	//Array que vai receber todas as linhas do arquivo
 
 	//Cria objeto de leitura
@@ -147,11 +148,10 @@ Static Function xFIN01ACar(cFile,cLayout)
 	//abre arquivo para leitura
 	if (oFile:Open())
 		//grava linhas no array
-		aLinha := FWFileReader():getAllLines()
-		//enquanto não for final de arquivo
-		while (oFile:hasLine())
-			MsgAlert(oFile:GetLine())
-		end
+		aLinha := oFile:getAllLines()
+		
+		aAdd( aCabec,{'ZS1_DATA' , substr(aLinha[1],144,8) } )
+		
 		oFile:Close()
 	endif
 
